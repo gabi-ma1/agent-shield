@@ -133,6 +133,19 @@ def render_report(result: PipelineResult) -> str:
                 "```",
                 "",
             ]
+        if result.hardening.code_patch:
+            lines += [
+                (
+                    "**Proposed code-level patch** — prompt instructions alone aren't a "
+                    "reliable boundary; this enforces the fix in code, independent of what "
+                    "the model decides to do:"
+                ),
+                "",
+                f"```{result.hardening.code_patch_language}",
+                result.hardening.code_patch,
+                "```",
+                "",
+            ]
 
     if result.reverify_session:
         rv = result.reverify_session

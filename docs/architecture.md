@@ -35,10 +35,14 @@
    │  Stage 4: Harden (harden.py)          │
    │  Given the worst turn + (optionally)   │
    │  the target's known original system     │
-   │  prompt, Nemotron proposes either a       │
-   │  full hardened rewrite or a generic        │
-   │  guardrail addendum.                        │
-   └──────────┬──────────────────────────────────┘
+   │  prompt, Nemotron proposes:               │
+   │   - a hardened prompt rewrite (or a        │
+   │     generic guardrail addendum)             │
+   │   - a runnable code patch (output filter,    │
+   │     tool-call guard) enforcing the fix in      │
+   │     code, since prompt instructions alone       │
+   │     aren't a reliable security boundary          │
+   └──────────┬──────────────────────────────────────┘
               │  if a full hardened prompt was produced
               v
    ┌──────────────────────────────────────┐
@@ -142,3 +146,13 @@ self-owned target to demonstrate against.
   verify loop, not "red-teaming" in general, and (b) wanting a demo structure comparable to
   what won a different agent hackathon (an infra incident-response agent that verified its own
   fix worked, not just reported the problem).
+- 2026-09-10: Hardened the pipeline itself against prompt injection — `target_reply` now flows
+  through `safety.py::wrap_untrusted()` everywhere it reaches a model (judge, attacker, harden,
+  recon), since a defended/adversarial target could otherwise embed fake instructions in its
+  reply to manipulate AgentShield's own reasoning.
+- 2026-09-11: Team feedback on the idea doc: add the ability to suggest/generate actual patches
+  or pieces of software to fix the attacked agent, not just describe the problem. Extended
+  Stage 4 (Harden) to also produce a runnable code patch (e.g. an output filter, a tool-call
+  guard) alongside the prompt-level fix — addresses the feedback directly, and reinforces our
+  own stated mitigation principle that prompt instructions alone aren't a reliable security
+  boundary.

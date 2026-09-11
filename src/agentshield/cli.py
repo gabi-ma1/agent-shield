@@ -111,6 +111,11 @@ def _run(args: argparse.Namespace) -> None:
             original_system_prompt=original_system_prompt,
         )
         console.print(f"  {hardening.rationale}")
+        if hardening.code_patch:
+            console.print(
+                f"[dim]  Also generated a {hardening.code_patch_language} code patch "
+                f"(see the report).[/dim]"
+            )
 
         if hardening.hardened_system_prompt:
             console.print("[dim]Stage 5: Re-verifying against hardened target...[/dim]")

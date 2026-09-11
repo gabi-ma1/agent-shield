@@ -58,7 +58,9 @@ AgentShield runs a 5-stage pipeline against a target agent/chatbot endpoint:
    prompt leak, jailbreak, tool-calling abuse, or data exfiltration.
 3. **Verify** — an independent judge model scores each turn (succeeded? how severe, 0-4?).
 4. **Harden** — if the attack succeeded, a model proposes a concrete hardened system prompt
-   (or a guardrail addendum, if the original prompt isn't known).
+   (or a guardrail addendum, if the original prompt isn't known) **and a runnable code patch**
+   (e.g. an output filter or a tool-call guard) — prompt instructions alone aren't a reliable
+   security boundary, so the fix is also enforced in code, not just requested of the model.
 5. **Re-Verify** — re-runs the same attack against the hardened version and reports whether the
    fix actually closed the gap — the same "detect → fix → confirm it's fixed" loop that makes
    incident-response tooling credible, applied to agent security instead of infrastructure.
