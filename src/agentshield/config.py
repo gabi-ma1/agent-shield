@@ -22,9 +22,9 @@ class Config:
         return cls(
             nebius_api_key=api_key,
             nebius_base_url=os.environ.get(
-                "NEBIUS_BASE_URL", "https://api.studio.nebius.com/v1"
+                "NEBIUS_BASE_URL", "https://api.tokenfactory.nebius.com/v1/"
             ),
             nebius_model=os.environ.get(
-                "NEBIUS_MODEL", "nvidia/Llama-3_1-Nemotron-70B-Instruct"
+                "NEBIUS_MODEL", "nvidia/nemotron-3-super-120b-a12b"
             ),
         )

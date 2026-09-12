@@ -83,12 +83,21 @@ See [docs/architecture.md](docs/architecture.md).
 
 ## Setup
 
+1. Get a Nebius Token Factory API key: sign up at
+   [tokenfactory.nebius.com](https://tokenfactory.nebius.com) (Google/GitHub login works, no
+   sales call), then go to **Project Settings -> API Keys** and create one. New accounts get
+   trial credits. Never commit this key — it only ever goes in your local `.env`, never in
+   code or in `.env.example`.
+2. Confirm the model slug you want in the
+   [Token Factory model catalog](https://tokenfactory.nebius.com/models/catalog) — availability
+   can change; `nvidia/nemotron-3-super-120b-a12b` is what's set by default.
+
 ```bash
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
 copy .env.example .env
-# fill in NEBIUS_API_KEY in .env
+# fill in NEBIUS_API_KEY (and NEBIUS_MODEL if different) in .env
 ```
 
 ## Running it

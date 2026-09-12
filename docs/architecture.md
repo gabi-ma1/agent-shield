@@ -98,11 +98,12 @@ integrate it in CI where AgentShield has access to the actual prompt/config.
 
 ## Nebius / NVIDIA integration
 
-- `nebius_client.py` wraps the OpenAI-compatible Nebius Token Factory endpoint.
+- `nebius_client.py` wraps the OpenAI-compatible Nebius Token Factory endpoint
+  (`https://api.tokenfactory.nebius.com/v1/`).
 - Every stage's reasoning (recon summary, attacker, judge, hardening proposal) is a separate
-  call to an NVIDIA Nemotron model on Nebius — set via `NEBIUS_MODEL` in `.env` (check the
-  current Nebius Studio model catalog for the exact slug of the Nemotron variant you have
-  access to).
+  call to an NVIDIA Nemotron model on Nebius — set via `NEBIUS_MODEL` in `.env`. Default:
+  `nvidia/nemotron-3-super-120b-a12b`; confirm current availability/slug in the
+  [Token Factory model catalog](https://tokenfactory.nebius.com/models/catalog).
 
 ## Demo target
 
